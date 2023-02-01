@@ -1,0 +1,84 @@
+EMPRESA OPENBOOK SE DEDICA A ALQUILAR LIBROS, AUDIOLIBROS EN CD. Los articulos estan clasificados por categoria de contenido, hay libros y audiolibros solo para mayores de edad .
+
+
+Para poder alquilar los articulos se necesita una cedula de identidad para registrar la alquilada del articulo.
+Un articulo tiene que ser devuelto como maximo en 48 horas o renovar la solicitud de alquiler.
+
+Por cada articulo existen  de 3 a 10 copias. El administrador en base a la disponibilidad d elas copias decide si seguir o no extendiendo la solicitud de alquilamiento, en caso de que no haya micha disponibilidad en stock, le indica al cliente que no puede alquilarle el articulo
+
+El precio por alquiler d elibro es de $5 por dia y del audiolibro $3.
+El administrador necesita mantener un mejor control de su proceso de alquiler de articulo y de su registros de ingresos monetarios por los alquileres.
+
+Se requiere una aplicacion web que permita registrar articulos (libros y audiolibros) ademas de todas las caracteristicas adicionales: categoria, ano de publicacion, restriccion de edad, costo del articulo, etc
+
+Adicional el sistema debe llevar un control de articulos alquilados y disponibles y los que estan proximos por ser entregados .
+
+El sistema debe tener una opcion para consultar los articulos que no han sido devueltos
+el sistema debe poder registrar los clientes y los articulos que el cliente esta alquilando
+El sistema debe generar una pantalla de reporte donde se detalle las ganancias recibidas por el alquiler durante un periodo de tiempo agrupadas por categoria
+
+el sistema debe generar una pantalla de reporte donde se detalle las ganancias recibidas por el alquiler durante un periodo de tiempo agrupadas por categoria y otra pantalla de reporte por articulo
+
+---------------------------------------------------------------------------------
+builder.Services.AddDbContext<BookDBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BookConnection"));
+}
+    );
+
+
+-------------------------------------------------------------
+Relación totalmente definida 
+En el tercer enfoque, se considera que la relación está completamente definida cuando ambos extremos de la navegación están presentes junto con una propiedad de clave externa :
+
+public class Author
+{
+    public int AuthorId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public ICollection<Book> Books { get; set; }
+}
+public class Book
+{
+    public int BookId { get; set; }
+    public string Title { get; set; }
+    public int AuthorId { get; set; }
+    public Author Author { get; set; }
+}
+
+----------------------------------------------------------
+ public BookDBContext(DbContextOptions<BookDBContext>options):base() {
+
+        }
+        public DbSet <Libro> Libros { get; set; }
+        public DbSet<AudioLibro> AudioLibros { get; set; }
+---------------------------------
+ [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
+        public int LibroID { get; set; }
+        [Required]
+
+	 [StringLength(100)]
+	public string apellidos {get;set;}
+
+------------------------------------------------------------------
+
+
+
+Dotnet EF
+dotnet tool install --global dotnet-ef
+
+cd BookApp.data/
+dotnet ef --startup-project ../BooksAppApi/ migrations add Initial
+dotnet ef --startup-project ../BooksAppApi/ database update
+
+
+PM>dir
+
+PM> cd .\Nombre del proyecto
+
+"server=DESKTOP-6884LGI\\SQLDEVELOPER2;database=BOOKDB;user=sa;password=Angie2000;TrustServerCertificate=True"
+
+
+
